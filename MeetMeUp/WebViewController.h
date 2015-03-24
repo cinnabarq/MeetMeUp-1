@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  WebViewController.h
 //  MeetMeUp
 //
 //  Created by Mert Akanay on 23.03.2015.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface WebViewController : UIViewController
 
+@property NSDictionary *rowDictionary;
 
 @end
-
