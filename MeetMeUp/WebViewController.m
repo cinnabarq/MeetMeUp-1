@@ -7,6 +7,7 @@
 //
 
 #import "WebViewController.h"
+#import "Meetup.h"
 
 @interface WebViewController () <UIWebViewDelegate>
 
@@ -22,9 +23,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = [self.rowDictionary objectForKey:@"name"];
+    Meetup *newMeetup;
 
-    NSString *web = [self.rowDictionary objectForKey:@"event_url"];
+    for (int i = 0; i < self.meetups.count; i++)
+    {
+        newMeetup = self.meetups[i];
+    }
+    self.navigationItem.title = newMeetup.name;
+
+    NSString *web = newMeetup.eventURL;
     NSURL *website = [NSURL URLWithString:web];
     NSURLRequest *request = [NSURLRequest requestWithURL:website];
     [self.webView loadRequest:request];

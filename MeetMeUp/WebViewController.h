@@ -10,6 +10,6 @@
 
 @interface WebViewController : UIViewController
 
-@property NSDictionary *rowDictionary;
+@property NSArray *meetups;
 
 @end

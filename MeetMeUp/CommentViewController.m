@@ -26,8 +26,6 @@
 
 @implementation CommentViewController
 
-//couldnt give a segue to this view controller because of bug!!
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 

@@ -11,5 +11,6 @@
 @interface DetailViewController : UIViewController
 
 @property NSDictionary *rowsDictionary;
+@property NSArray *meetups;
 
 @end

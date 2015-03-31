@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "WebViewController.h"
 #import "CommentViewController.h"
+#import "Meetup.h"
 
 @interface DetailViewController ()
 
@@ -26,25 +27,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.groupName =[self.rowsDictionary objectForKey:@"group"];
-    self.groupNameLabel.text = [self.groupName objectForKey:@"name"];
+    Meetup *newMeetup;
 
-    NSNumber *number = [self.rowsDictionary objectForKey:@"yes_rsvp_count"];
+    for (int i = 0; i < self.meetups.count; i++)
+    {
+        newMeetup = self.meetups[i];
+    }
+
+    self.groupNameLabel.text = newMeetup.groupName;
+    NSNumber *number = newMeetup.rsvp;
     self.participantNumLabel.text = [NSString stringWithFormat:@"%@",number];
-
-    self.eventDescLabel.text = [self.rowsDictionary objectForKey:@"description"];
-
-    self.navigationItem.title = [self.rowsDictionary objectForKey:@"name"];
+    self.eventDescLabel.text = newMeetup.description;
+    self.navigationItem.title = newMeetup.name;
 
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+//    if ([sender isKindOfClass:[UITapGestureRecognizer class]])
+//    {
     WebViewController *webVC = [segue destinationViewController];
-    webVC.rowDictionary = self.rowsDictionary;
-
-    CommentViewController *commentVC = [segue destinationViewController];
-    commentVC.rowsDictionary = self.rowsDictionary;
+    webVC.meetups = self.meetups;
+//    }else{
+//    CommentViewController *commentVC = [segue destinationViewController];
+//    commentVC.rowsDictionary = self.rowsDictionary;
+//    }
 }
 
 @end

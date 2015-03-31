@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H3b-9a-wkA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H3b-9a-wkA">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -29,7 +29,7 @@
                                     </connections>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellID" textLabel="is6-VR-KMQ" detailTextLabel="Svb-1O-6Fy" rowHeight="86" style="IBUITableViewCellStyleSubtitle" id="JSG-DN-v5T">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellID" textLabel="is6-VR-KMQ" detailTextLabel="Svb-1O-6Fy" rowHeight="86" style="IBUITableViewCellStyleSubtitle" id="JSG-DN-v5T">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JSG-DN-v5T" id="7g7-Ap-Ch9">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -69,6 +69,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Meet Me Up" id="1DY-Nf-GoT"/>
                     <connections>
+                        <outlet property="searchBar" destination="EqZ-wL-G5L" id="Y9T-3x-tcl"/>
                         <outlet property="tableView" destination="BPl-0a-AOF" id="tiK-hw-gYz"/>
                     </connections>
                 </viewController>
@@ -128,12 +129,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Event Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BSy-Rf-BsQ">
-                                <rect key="frame" x="16" y="228" width="568" height="311"/>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8J-y9-vts">
                                 <rect key="frame" x="256" y="563" width="89" height="17"/>
                                 <gestureRecognizers/>
@@ -154,6 +149,12 @@
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="XvK-hh-Wt3" appends="YES" id="sbD-8H-WZ3"/>
                                 </connections>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Event Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BSy-Rf-BsQ">
+                                <rect key="frame" x="16" y="228" width="568" height="267"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -176,7 +177,14 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationItem key="navigationItem" id="iOg-y9-URs">
+                        <barButtonItem key="rightBarButtonItem" title="Comments" id="ALf-5s-voC">
+                            <connections>
+                                <segue destination="eMN-6X-K4W" kind="show" id="kW5-vv-Ps9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="eventDescLabel" destination="BSy-Rf-BsQ" id="tY5-II-yXS"/>
                         <outlet property="groupNameLabel" destination="8vN-6y-EO4" id="gid-cv-aG9"/>
@@ -187,7 +195,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4s-Gf-Bye" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="XvK-hh-Wt3">
                     <connections>
-                        <segue destination="vTS-uK-F5y" kind="show" id="NsO-h0-bQo"/>
+                        <segue destination="vTS-uK-F5y" kind="show" id="4Wi-Zw-RUS"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

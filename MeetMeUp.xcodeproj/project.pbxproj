@@ -17,6 +17,8 @@
 		3E7A23F51AC0D06000F160E0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E7A23F41AC0D06000F160E0 /* DetailViewController.m */; };
 		3E7A23F81AC0F48100F160E0 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E7A23F71AC0F48100F160E0 /* WebViewController.m */; };
 		3E7A23FB1AC10CD400F160E0 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E7A23FA1AC10CD400F160E0 /* CommentViewController.m */; };
+		3EB4F0B41ACA129E00769CF3 /* Meetup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4F0B31ACA129E00769CF3 /* Meetup.m */; };
+		3EB4F0B71ACA4A1300769CF3 /* Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4F0B61ACA4A1300769CF3 /* Comments.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,10 @@
 		3E7A23F71AC0F48100F160E0 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		3E7A23F91AC10CD400F160E0 /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		3E7A23FA1AC10CD400F160E0 /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
+		3EB4F0B21ACA129E00769CF3 /* Meetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meetup.h; sourceTree = "<group>"; };
+		3EB4F0B31ACA129E00769CF3 /* Meetup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meetup.m; sourceTree = "<group>"; };
+		3EB4F0B51ACA4A1300769CF3 /* Comments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comments.h; sourceTree = "<group>"; };
+		3EB4F0B61ACA4A1300769CF3 /* Comments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comments.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +104,12 @@
 				3E7A23F41AC0D06000F160E0 /* DetailViewController.m */,
 				3E7A23F61AC0F48100F160E0 /* WebViewController.h */,
 				3E7A23F71AC0F48100F160E0 /* WebViewController.m */,
+				3EB4F0B21ACA129E00769CF3 /* Meetup.h */,
+				3EB4F0B31ACA129E00769CF3 /* Meetup.m */,
 				3E7A23F91AC10CD400F160E0 /* CommentViewController.h */,
 				3E7A23FA1AC10CD400F160E0 /* CommentViewController.m */,
+				3EB4F0B51ACA4A1300769CF3 /* Comments.h */,
+				3EB4F0B61ACA4A1300769CF3 /* Comments.m */,
 				3E7A23D71AC0B75800F160E0 /* Main.storyboard */,
 				3E7A23DA1AC0B75800F160E0 /* Images.xcassets */,
 				3E7A23DC1AC0B75800F160E0 /* LaunchScreen.xib */,
@@ -237,9 +247,11 @@
 				3E7A23FB1AC10CD400F160E0 /* CommentViewController.m in Sources */,
 				3E7A23D61AC0B75800F160E0 /* RootViewController.m in Sources */,
 				3E7A23F81AC0F48100F160E0 /* WebViewController.m in Sources */,
+				3EB4F0B71ACA4A1300769CF3 /* Comments.m in Sources */,
 				3E7A23D31AC0B75800F160E0 /* AppDelegate.m in Sources */,
 				3E7A23D01AC0B75800F160E0 /* main.m in Sources */,
 				3E7A23F51AC0D06000F160E0 /* DetailViewController.m in Sources */,
+				3EB4F0B41ACA129E00769CF3 /* Meetup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

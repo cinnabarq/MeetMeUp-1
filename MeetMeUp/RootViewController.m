@@ -8,18 +8,17 @@
 
 #import "RootViewController.h"
 #import "DetailViewController.h"
+#import "Meetup.h"
 
 @interface RootViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
-@property NSDictionary *meetupDictionary;
-@property NSMutableArray *meetupArray;
-
-@property NSDictionary *meetupAddress;
-@property NSDictionary *dictionaryAtRow;
+@property (nonatomic)  NSArray *meetups;
+@property NSMutableArray *filteredMeetups;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-//@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property NSURL *url;
+@property BOOL isFiltered;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -28,30 +27,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.url = [NSURL URLWithString:@"https://api.meetup.com/2/open_events.json?zip=94101&text=mobile&time=,1w&text_format=plain&key=2864313b77404018213118225a0211"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    [Meetup retrieveMeetupsWithCompletion:^(NSArray *array)
+     {
+         self.meetups = array;
+     }];
 
-        self.meetupDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        self.meetupArray = [self.meetupDictionary objectForKey:@"results"];
+    self.isFiltered = NO;
 
+}
 
-
-        [self.tableView reloadData];
-    }];
-
+-(void)setMeetups:(NSArray *)meetups
+{
+    _meetups = meetups;
+    [self.tableView reloadData];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
-    self.dictionaryAtRow = [self.meetupArray objectAtIndex:indexPath.row];
 
-    
-    self.meetupAddress = [self.dictionaryAtRow objectForKey:@"venue"];
+    Meetup *newMeetup;
 
-    cell.textLabel.text = [self.dictionaryAtRow objectForKey:@"name"];
-    cell.detailTextLabel.text = [self.meetupAddress objectForKey:@"address_1"];
+    if (self.isFiltered) {
+        newMeetup = [self.filteredMeetups objectAtIndex:indexPath.row];
+    }else
+    {
+        newMeetup = [self.meetups objectAtIndex:indexPath.row];
+    }
+
+    cell.textLabel.text = newMeetup.name;
+    cell.detailTextLabel.text = newMeetup.address;
     cell.detailTextLabel.numberOfLines=0;
 
     return cell;
@@ -59,30 +64,39 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.meetupArray.count;
+    if (self.isFiltered) {
+        return self.filteredMeetups.count;
+    }else
+    {
+        return self.meetups.count;
+    }
 }
 
--(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar //why do I need to tap search twice ??
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    NSString *search = [NSString stringWithFormat:@"https://api.meetup.com/2/open_events.json?zip=94101&text=%@&time=,1w&text_format=plain&key=2864313b77404018213118225a0211",searchBar.text];
-    self.url = [NSURL URLWithString:search];
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 
-        self.meetupDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        self.meetupArray = [self.meetupDictionary objectForKey:@"results"];
-
-    }];
-
+  if(self.searchBar.text.length == 0)
+  {
+      self.isFiltered = NO;
+  }else
+  {
+      self.isFiltered = YES;
+      self.filteredMeetups = [NSMutableArray new];
+      for (Meetup *meetup in self.meetups)
+      {
+          NSRange nameRange = [meetup.name rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch];
+          if (nameRange.location != NSNotFound) {
+              [self.filteredMeetups addObject:meetup];
+          }
+      }
+  }
     [self.tableView reloadData];
-
-    [searchBar resignFirstResponder];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     DetailViewController *detailVC = [segue destinationViewController];
-    detailVC.rowsDictionary = self.dictionaryAtRow;
+    detailVC.meetups = self.meetups;
 }
 
 
