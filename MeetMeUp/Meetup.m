@@ -19,9 +19,19 @@
     self.rsvp = [dictionary objectForKey:@"yes_rsvp_count"];
     self.eventDescription = [dictionary objectForKey:@"description"];
     self.groupName = [[dictionary objectForKey:@"group"] objectForKey:@"name"];
+    self.timeSince1970 = [dictionary objectForKey:@"time"];
 
     return self;
 }
+
+-(NSString *)time
+{
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateFormat = @"MM/dd/yy HH:mm";
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.timeSince1970.doubleValue/1000];
+    return [formatter stringFromDate:date];
+}
+
 
 +(void)retrieveMeetupsWithCompletion:(void (^)(NSArray *))complete
 {

@@ -17,9 +17,11 @@
 @property NSString *eventURL;
 @property NSNumber *rsvp;
 @property NSString *eventDescription;
+@property (nonatomic) NSString *time;
+@property NSNumber *timeSince1970;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 +(void)retrieveMeetupsWithCompletion:(void (^)(NSArray *))complete;
-+(void)retrieveSearchResultsWithCompletion:(void (^)(NSArray *))complete;
+//+(void)retrieveSearchResultsWithCompletion:(void (^)(NSArray *))complete;
 
 @end

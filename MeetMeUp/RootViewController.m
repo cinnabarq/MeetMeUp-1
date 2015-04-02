@@ -12,12 +12,12 @@
 
 @interface RootViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
-@property (nonatomic)  NSArray *meetups;
-@property NSMutableArray *filteredMeetups;
+@property (nonatomic)  NSArray *allMeetups;
+@property (nonatomic) NSMutableArray *meetupsToDisplay;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSURL *url;
-@property BOOL isFiltered;
+//@property BOOL isFiltered;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
@@ -29,31 +29,37 @@
 
     [Meetup retrieveMeetupsWithCompletion:^(NSArray *array)
      {
-         self.meetups = array;
+         self.allMeetups = array;
+         self.meetupsToDisplay = [self.allMeetups mutableCopy];
      }];
 
-    self.isFiltered = NO;
+//    self.isFiltered = NO;
 
 }
 
--(void)setMeetups:(NSArray *)meetups
+-(void)setMeetupsToDisplay:(NSMutableArray *)meetupsToDisplay
 {
-    _meetups = meetups;
+    _meetupsToDisplay = meetupsToDisplay;
     [self.tableView reloadData];
 }
+//-(void)setMeetups:(NSArray *)meetups
+//{
+//    _allMeetups = meetups;
+//    [self.tableView reloadData];
+//}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
 
-    Meetup *newMeetup;
+    Meetup *newMeetup = [self.meetupsToDisplay objectAtIndex:indexPath.row];
 
-    if (self.isFiltered) {
-        newMeetup = [self.filteredMeetups objectAtIndex:indexPath.row];
-    }else
-    {
-        newMeetup = [self.meetups objectAtIndex:indexPath.row];
-    }
+//    if (self.isFiltered) {
+//        newMeetup = [self.filteredMeetups objectAtIndex:indexPath.row];
+//    }else
+//    {
+//        newMeetup = [self.meetups objectAtIndex:indexPath.row];
+//    }
 
     cell.textLabel.text = newMeetup.name;
     cell.detailTextLabel.text = newMeetup.address;
@@ -64,29 +70,33 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.isFiltered) {
-        return self.filteredMeetups.count;
-    }else
-    {
-        return self.meetups.count;
-    }
+//    if (self.isFiltered) {
+//        return self.filteredMeetups.count;
+//    }else
+//    {
+//        return self.meetups.count;
+//    }
+
+    return self.meetupsToDisplay.count;
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
 
-  if(self.searchBar.text.length == 0)
+  if(searchText.length == 0)
   {
-      self.isFiltered = NO;
+//      self.isFiltered = NO;
+      self.meetupsToDisplay = [self.allMeetups mutableCopy];
   }else
   {
-      self.isFiltered = YES;
-      self.filteredMeetups = [NSMutableArray new];
-      for (Meetup *meetup in self.meetups)
+//      self.isFiltered = YES;
+      [self.meetupsToDisplay removeAllObjects];
+//     NSMutableArray *filteredMeetups = [NSMutableArray new];
+      for (Meetup *meetup in self.allMeetups)
       {
           NSRange nameRange = [meetup.name rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch];
           if (nameRange.location != NSNotFound) {
-              [self.filteredMeetups addObject:meetup];
+              [self.meetupsToDisplay addObject:meetup];
           }
       }
   }
@@ -96,7 +106,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     DetailViewController *detailVC = [segue destinationViewController];
-    detailVC.meetups = self.meetups;
+    detailVC.meetups = self.allMeetups;
 }
 
 
